@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Ejercicios {
@@ -27,9 +28,34 @@ public class Ejercicios {
      * Explicación: Ambas cadenas tienen los mismos caracteres con la misma
      * frecuencia.
      */
-    public static boolean areAnagrams(String str1, String str2) {
-        throw new UnsupportedOperationException("Not implemented yet");
 
+    public static boolean areAnagrams(String str1, String str2) {
+        System.out.println("Input: str1 = \"" + str1 + "\", str2 = \"" + str2 + "\"");
+
+        if (str1.length() != str2.length()) {
+            System.out.println("Output: false");
+            System.out.println("Explicación: Las cadenas tienen longitudes distintas.");
+            return false;
+        }
+
+        HashMap<Character, Integer> contador = new HashMap<>();
+
+        for (char c : str1.toCharArray()) {
+            contador.put(c, contador.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : str2.toCharArray()) {
+            if (!contador.containsKey(c) || contador.get(c) == 0) {
+                System.out.println("Output: false");
+                System.out.println("Explicación: Las cadenas tienen diferentes caracteres o frecuencias.");
+                return false;
+            }
+            contador.put(c, contador.get(c) - 1);
+        }
+
+        System.out.println("Output: true");
+        System.out.println("Explicación: Ambas cadenas tienen los mismos caracteres con la misma frecuencia.");
+        return true;
     }
 
     /*
@@ -47,7 +73,30 @@ public class Ejercicios {
      * Input: nums = [9,2,3,6], objetivo = 10
      * Output: null
      */
+    
     public int[] sumatoriaDeDos(int[] nums, int objetivo) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        System.out.println("Input: nums = " + Arrays.toString(nums) + ", objetivo = " + objetivo);
+
+        HashMap<Integer, Integer> mapaIndices = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complemento = objetivo - nums[i];
+
+            // Si el complemento ya existe, devolvemos el resultado
+            if (mapaIndices.containsKey(complemento)) {
+                int[] resultado = { mapaIndices.get(complemento), i };
+                System.out.println("Output: " + Arrays.toString(resultado));
+                System.out
+                        .println("Explicación: nums[" + resultado[0] + "] + nums[" + resultado[1] + "] == " + objetivo);
+                return resultado;
+            }
+
+            // Almacenamos el índice del número actual
+            mapaIndices.put(nums[i], i);
+        }
+
+        System.out.println("Output: null");
+        System.out.println("Explicación: No se encontraron números que sumen el objetivo.");
+        return null;
     }
 }

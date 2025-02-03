@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import controllers.Ejercicios;
 import controllers.EmpleadoContoller;
 import controllers.Mapa;
@@ -11,10 +13,10 @@ public class App {
         // runMapExamlpe();
 
         // Ejecuta el ejemplo de gestión de empleados usando HashMap
-        runEmpleadoExample();
+        // runEmpleadoExample();
 
         // Ejecuta los ejercicios de sumatoria y anagramas
-        // runEjerccios();
+        runEjercicos();
     }
 
     private static void runEmpleadoExample() {
@@ -51,8 +53,41 @@ public class App {
 
     }
 
-    private static void runEjerccios() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    private static void runEjercicos() {
+        System.out.println(" EJERCICIO 1 ");
+        Ejercicios ejercicios = new Ejercicios();
+        Scanner entrada = new Scanner(System.in);
 
+        System.out.print("Escriba la primera palabra: ");
+        String palabra1 = entrada.nextLine();
+        System.out.print("Escriba la segunda palabra: ");
+        String palabra2 = entrada.nextLine();
+
+        boolean esAnagrama = Ejercicios.areAnagrams(palabra1, palabra2);
+        System.out.println("¿Son anagramas? " + esAnagrama);
+
+        System.out.println(" EJERCICIO 2 ");
+
+        System.out.print("¿Cuántos elementos tendrá el arreglo? ");
+        int tamano = entrada.nextInt();
+        int[] numeros = new int[tamano];
+
+        System.out.println("Ingrese los números del arreglo:");
+        for (int i = 0; i < tamano; i++) {
+            numeros[i] = entrada.nextInt();
+        }
+
+        System.out.print("Ingrese el valor objetivo: ");
+        int objetivo = entrada.nextInt();
+
+        int[] indices = ejercicios.sumatoriaDeDos(numeros, objetivo);
+        if (indices != null) {
+            System.out.println("Índices encontrados: [" + indices[0] + ", " + indices[1] + "]");
+        } else {
+            System.out.println("No se encontraron números que sumen el valor objetivo.");
+        }
+
+        entrada.close();
     }
+
 }
